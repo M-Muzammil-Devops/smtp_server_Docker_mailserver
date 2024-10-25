@@ -35,7 +35,8 @@ To configure DNS settings for this server, use the following records:
 | `@`      | A               | *Server IP*          | -        |
 | `mail`   | A               | *Server IP*          | -        |
 | `@`      | MX              | `mail.example.com`   | 10       |
-| `txt`    | @               | `v=spf1 include:mail.example.com -all`   | -        |
+| `mail`   | MX              | `v=DMARC1; p=quarantine; adkim=r; aspf=r; pct=100`  | 10       |
+| `_dmarc` | txt             | `v=spf1 include:mail.example.com -all`              | -        |
 
 - **Host**: `@` refers to the root domain (e.g., `example.com`).
 - **Record Type**:
@@ -45,9 +46,14 @@ To configure DNS settings for this server, use the following records:
 
 
 We need to edit **compose.yaml** file to set our hostname. Use your favorite editor.
-''' hostname: mail.example.com '''
+```bash
+hostname: mail.example.com
+```
 
 ### Deploy ON Docker Container
-'''
+To write the command in Markdown so it’s easy to copy on GitHub, use triple backticks with `bash` for syntax highlighting, like this:
+
+```bash
 docker compose up -d
-'''
+```
+
