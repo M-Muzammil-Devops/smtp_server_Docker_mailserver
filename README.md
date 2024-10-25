@@ -169,6 +169,16 @@ Step 2 — Obtaining an SSL Certificate
 ```bash
 sudo certbot --nginx -d example.com
 ```
+Step 3: Verify Certificate Renewal (Optional)
+```bash
+sudo certbot renew --dry-run
+```
+
+Step 4: Test Your HTTPS Setup
+Visit your website using HTTPS (e.g., `https://your_domain`). You should see a secure padlock icon in your browser’s address bar, indicating that your site is now using HTTPS.
+
+Step 5: Adjust Your NGINX Configuration (Optional)
+By default, Certbot will create a server block for your domain in `/etc/nginx/sites-available/your_domain`. You can customize this configuration as needed, such as adding additional security headers or configuring specific SSL settings.
 
 
 
