@@ -80,6 +80,12 @@ cat mail.txt
 
 Now we have the DKIM key and we will add this to our DNS records. ### Do not include parenthesis and quotation marks. ###
 
+### Add This Key KDIM in DNS Record
+|           Host             |   Record Type   |      Value   | Priority |
+|----------------------------|-----------------|--------------|----------|
+| `mail._domainkey`          | txt             | add dkim key | -        |
 
-
+### For examples add key
+```bash
+v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwf32ZQtSMObL/jRq9RN+A5jrYsbXkIZnEdOY3RW5wFgH+G8rN/Lcu8iCkHpp9nt0xBEG6Aksq76wLDa2hPgFKoRAYZmCIrFInhsVgBgTxk2gAmauW4rZExevM3FZE1TzeMsfQHB78AJMNiXKdQpRCR+ivOvxH9ahx9TucW+Nc+03zYyfDB5I12fh6/hYnN0MF4xaDuu7Ddgrjeh/eukYYQOUEtxPOm21BPVCiHFhdGX3Nk08rRr1ZZN8807hsJZj4+aCStmk4We+ik/R/x8noa0r2rHVAc2iNO5kklmt/34ueMd+ZPmZw3DaGvu9KRuXuBjcnX9B/xXCUfJQqeuM5QIDAQAB```
 
