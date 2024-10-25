@@ -76,8 +76,9 @@ cd docker-data/dms/config/opendkim/keys/example.com/
 ```bash
 cat mail.txt
 ```
-![Digital Ocean Droplets Types](https://github.com/user-attachments/assets/9fd80fc0-6009-4b76-ae53-a52a4d08bc5c)
+![DKIM-Docker-Mailserver](https://github.com/user-attachments/assets/89afbbab-8730-4bdd-80d5-e59e7fb18679)
 
+Now we have the DKIM key and we will add this to our DNS records. ### Do not include parenthesis and quotation marks. ###
 
 
 
