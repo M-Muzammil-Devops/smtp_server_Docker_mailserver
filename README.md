@@ -30,6 +30,9 @@ DNS Records
 
 To configure DNS settings for this server, use the following records:
 @, mail, txt, MX, Dmarc, DKIM, SPF
+### important Note
+Replace example.com
+
 |   Host   |   Record Type   |      Value           | Priority |
 |----------|-----------------|----------------------|----------|
 | `@`      | A               | *Server IP*          | -        |
@@ -46,6 +49,7 @@ To configure DNS settings for this server, use the following records:
 
 
 We need to edit **compose.yaml** file to set our hostname. Use your favorite editor.
+Replace example.com
 ```bash
 hostname: mail.example.com
 ```
@@ -56,4 +60,25 @@ To write the command in Markdown so it’s easy to copy on GitHub, use triple ba
 ```bash
 docker compose up -d
 ```
+### Create an Email Address From Mailserver Container
+Replace example.com
+```bash
+docker exec -ti mailserver setup email add info@example.com
+```
+### Then run the following command to get the DKIM key.
+```bash
+docker exec -ti mailserver setup config dkim
+```
+### Find the docker-data Folder
+```bash
+cd docker-data/dms/config/opendkim/keys/example.com/
+```
+```bash
+cat mail.txt
+```
+![Digital Ocean Droplets Types](https://github.com/user-attachments/assets/9fd80fc0-6009-4b76-ae53-a52a4d08bc5c)
+
+
+
+
 
