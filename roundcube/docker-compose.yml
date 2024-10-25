@@ -1,0 +1,20 @@
+services:
+  roundcube:
+    image: roundcube/roundcubemail:latest
+    container_name: roundcube
+    restart: always
+    environment:
+      - ROUNDCUBEMAIL_DEFAULT_HOST=mail.example.com
+      - ROUNDCUBEMAIL_SMTP_SERVER=mail.example.com
+      - ROUNDCUBEMAIL_USER=info@example.com
+      - ROUNDCUBEMAIL_PASSWORD=root123  # Change this to a secure password
+    volumes:
+      - ./roundcube:/var/www/html
+    networks:
+      - docker-mailserver_default  # Use the same network as your mailserver
+    ports:
+      - "8080:80"  # Access Roundcube via http://your-server-ip:8080
+
+networks:
+  docker-mailserver_default:
+    external: true  # Ensure this is an external network
