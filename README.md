@@ -91,6 +91,11 @@ Now we have the DKIM key and we will add this to our DNS records. ### Do not inc
 ```bash
 v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwf32ZQtSMObL/jRq9RN+A5jrYsbXkIZnEdOY3RW5wFgH+G8rN/Lcu8iCkHpp9nt0xBEG6Aksq76wLDa2hPgFKoRAYZmCIrFInhsVgBgTxk2gAmauW4rZExevM3FZE1TzeMsfQHB78AJMNiXKdQpRCR+ivOvxH9ahx9TucW+Nc+03zYyfDB5I12fh6/hYnN0MF4xaDuu7Ddgrjeh/eukYYQOUEtxPOm21BPVCiHFhdGX3Nk08rRr1ZZN8807hsJZj4+aCStmk4We+ik/R/x8noa0r2rHVAc2iNO5kklmt/34ueMd+ZPmZw3DaGvu9KRuXuBjcnX9B/xXCUfJQqeuM5QIDAQAB
 ```
+### Install Roundcube ( access WEBUI mailserver from roundcube ) 
+Important node: open compose file and replace ( example.com )
+```bash
+docker compose up -d
+```
 
 ### Install Nginx latest version 
 ```bash
@@ -151,6 +156,20 @@ server {
 ```
 save and clone this file 
 
-### Install ssl ( Letsencrypt )
+### Install ssl ( Letsencrypt ) or Follow this article
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-22-04
+Step 1 — Installing Certbot
+```bash
+sudo apt install certbot python3-certbot-nginx
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+Step 2 — Obtaining an SSL Certificate
+```bash
+sudo certbot --nginx -d example.com
+```
+
+
 
 
