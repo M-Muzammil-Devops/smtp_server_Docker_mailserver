@@ -29,12 +29,13 @@ To add this to a GitHub description in a clear and understandable way, you can f
 DNS Records
 
 To configure DNS settings for this server, use the following records:
-
+@, mail, txt, MX, Dmarc, DKIM, SPF
 |   Host   |   Record Type   |      Value           | Priority |
 |----------|-----------------|----------------------|----------|
 | `@`      | A               | *Server IP*          | -        |
 | `mail`   | A               | *Server IP*          | -        |
 | `@`      | MX              | `mail.example.com`   | 10       |
+| `txt`    | @               | `v=spf1 include:mail.example.com -all`   | -        |
 
 - **Host**: `@` refers to the root domain (e.g., `example.com`).
 - **Record Type**:
@@ -44,4 +45,9 @@ To configure DNS settings for this server, use the following records:
 
 
 We need to edit **compose.yaml** file to set our hostname. Use your favorite editor.
-hostname: mail.example.com
+''' hostname: mail.example.com '''
+
+### Deploy ON Docker Container
+'''
+docker compose up -d
+'''
