@@ -8,4 +8,16 @@ Prerequisites:
 4. t2 or t3 medium ec2 2Gb Ram or 4Core
 
 Enable Parameters In mailserver.env
-1. 
+1. POSTMASTER_ADDRESS=postmaster@example.com
+2. ENABLE_UPDATE_CHECK=1
+3. UPDATE_CHECK_INTERVAL=1d
+4. ENABLE_OPENDKIM=1
+5. ENABLE_OPENDMARC=1
+6. ENABLE_POLICYD_SPF=1
+7. ENABLE_POP3=1
+8. ENABLE_IMAP=1
+9. ENABLE_CLAMAV=1
+10. ENABLE_MTA_STS=1
+11. RELAY_PORT=25
+
+DNS Record Setup
