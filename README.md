@@ -10,6 +10,8 @@ Docker Mailserver is free and open source.
 5. Static IP ( to associate ec2 )
 6. Install Docker Latest Version
 7. Create subdomain mail ( mail.example.com ) In DNS
+8. Nginx On host machine
+9. Install ssl ( USE Letsencrypt Use )
 
 ### Enable Parameters In mailserver.env
 1. POSTMASTER_ADDRESS=postmaster@example.com
@@ -87,5 +89,63 @@ Now we have the DKIM key and we will add this to our DNS records. ### Do not inc
 
 ### For examples add key
 ```bash
-v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwf32ZQtSMObL/jRq9RN+A5jrYsbXkIZnEdOY3RW5wFgH+G8rN/Lcu8iCkHpp9nt0xBEG6Aksq76wLDa2hPgFKoRAYZmCIrFInhsVgBgTxk2gAmauW4rZExevM3FZE1TzeMsfQHB78AJMNiXKdQpRCR+ivOvxH9ahx9TucW+Nc+03zYyfDB5I12fh6/hYnN0MF4xaDuu7Ddgrjeh/eukYYQOUEtxPOm21BPVCiHFhdGX3Nk08rRr1ZZN8807hsJZj4+aCStmk4We+ik/R/x8noa0r2rHVAc2iNO5kklmt/34ueMd+ZPmZw3DaGvu9KRuXuBjcnX9B/xXCUfJQqeuM5QIDAQAB```
+v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwf32ZQtSMObL/jRq9RN+A5jrYsbXkIZnEdOY3RW5wFgH+G8rN/Lcu8iCkHpp9nt0xBEG6Aksq76wLDa2hPgFKoRAYZmCIrFInhsVgBgTxk2gAmauW4rZExevM3FZE1TzeMsfQHB78AJMNiXKdQpRCR+ivOvxH9ahx9TucW+Nc+03zYyfDB5I12fh6/hYnN0MF4xaDuu7Ddgrjeh/eukYYQOUEtxPOm21BPVCiHFhdGX3Nk08rRr1ZZN8807hsJZj4+aCStmk4We+ik/R/x8noa0r2rHVAc2iNO5kklmt/34ueMd+ZPmZw3DaGvu9KRuXuBjcnX9B/xXCUfJQqeuM5QIDAQAB
+```
 
+### Install Nginx latest version 
+```bash
+sudo apt-get install nginx -y
+```
+Go to this directory
+```bash
+cd /etc/nginx/sites-available/
+```
+create host
+```bash
+sudo nano file-name
+```
+
+### Paste this file ( Virtual Host ) and Replace example.com
+```bash
+server {
+    server_name mail.example.com www.mail.example.com;
+
+    # Gzip compression
+    gzip on;
+    gzip_comp_level 6;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml text/javascript image/svg+xml;
+
+    location / {
+        proxy_pass http://ec2-static-public-ip-:8080; # Docker container running Roundcube
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Static files configuration
+    location /web/static/ {
+        proxy_pass http://ec2-static-public-ip:8080;
+        proxy_cache_valid 200 90m;
+        proxy_buffering on;
+        expires 864000;
+        add_header Cache-Control "public";
+    }
+
+    listen 443 ssl; # Enable SSL
+    ssl_certificate /etc/letsencrypt/live/mail.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/mail.example.com/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
+
+server {
+    if ($host = mail.example.com) {
+        return 301 https://$host$request_uri;
+    }
+
+    listen 80;
+    server_name mail.example.com www.mail.example.com;
+    return 404;
+}
+```
