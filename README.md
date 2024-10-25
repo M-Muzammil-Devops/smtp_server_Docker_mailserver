@@ -1,11 +1,15 @@
-### smtp_server_Docker_mailserver
+### smtp_server_docker_mailserver
 How to Setup Docker Mailserver on AWS EC2 And Deploy Ubuntu 2022
 Docker Mailserver is free and open source.
-Prerequisites:
+
+### Requirements:
 1. Request AWS Support Open Port 25 for smtp server.
 2. Setup on aws RDNS ( Reverse Domain Name System ).
 3. A registered domain name with access to DNS settings.
 4. t2 or t3 medium ec2 2Gb Ram or 4Core
+5. Static IP ( to associate ec2 )
+6. Install Docker Latest Version
+7. Create subdomain mail ( mail.example.com ) In DNS
 
 ### Enable Parameters In mailserver.env
 1. POSTMASTER_ADDRESS=postmaster@example.com
@@ -37,3 +41,7 @@ To configure DNS settings for this server, use the following records:
   - **A Record**: Maps a domain to an IP address.
   - **MX Record**: Directs mail to a specified mail server.
 - **Priority**: Lower values indicate higher priority.
+
+
+We need to edit **compose.yaml** file to set our hostname. Use your favorite editor.
+hostname: mail.example.com
