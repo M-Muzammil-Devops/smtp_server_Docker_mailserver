@@ -21,3 +21,22 @@ Enable Parameters In mailserver.env
 11. RELAY_PORT=25
 
 DNS Record Setup
+To add this to a GitHub description in a clear and understandable way, you can format it as follows:
+
+---
+
+### DNS Records
+
+To configure DNS settings for this server, use the following records:
+
+| **Host** | **Record Type** | **Value**             | **Priority** |
+|----------|------------------|------------------- --|--------------|
+| `@`      | A               | *Server IP*           | -            |
+| `mail`   | A               | *Server IP*           | -            |
+| `@`      | MX              | `mail.example.com`    | 10           |
+
+- **Host**: `@` refers to the root domain (e.g., `example.com`).
+- **Record Type**:
+  - **A Record**: Maps a domain to an IP address.
+  - **MX Record**: Directs mail to a specified mail server.
+- **Priority**: Lower values indicate higher priority.
