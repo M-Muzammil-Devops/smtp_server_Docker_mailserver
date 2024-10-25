@@ -105,7 +105,7 @@ create host
 sudo nano file-name
 ```
 
-### Paste this file ( Virtual Host ) and Replace example.com
+### Paste this file ( Virtual Host ) and Replace example.com and Replace ec2-static-public-ip
 ```bash
 server {
     server_name mail.example.com www.mail.example.com;
@@ -149,3 +149,8 @@ server {
     return 404;
 }
 ```
+save and clone this file 
+
+### Install ssl ( Letsencrypt )
+
+
